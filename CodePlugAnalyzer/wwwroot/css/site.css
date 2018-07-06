@@ -33,3 +33,7 @@
         display: none;
     }
 }
+
+
+tr.nozones { color: gray;}
+td.zones, td.summary { font-size: smaller;}
