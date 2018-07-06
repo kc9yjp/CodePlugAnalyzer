@@ -9,22 +9,46 @@
         <p>Sample CodePlug Analyzed</p>
         <p>EditCp exports a json file. Upload that file in the future. This page allows you to look at the codeplug in different ways. The work is done in your browser.</p>
     </div>
-    
+
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <p>Controls will go here.</p>
+    <div class="col-md-3 report-controls">
+        <div class="btn-group-vertical">
+            <button id="btnChanFrequency" type="button" class="btn btn-primary">Channels by Frequency</button>
+            <button id="btnChanName" type="button" class="btn btn-primary">Channels by Name</button>
+            <button id="btnChanPosition" type="button" class="btn btn-primary">Channels in File Oder</button>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="filled-in form-check-input" id="hideNoZoneChan" checked="checked">
+            <label for="hideNoZoneChan" class="form-check-label">Hide channels without zones</label>
+        </div>
     </div>
 </div>
 
-<div class="row" id="channelsByFrequency" style="display:none;">
+<div class="row channel-display" id="channelsByFrequency" style="display:none;">
     <div class="col-md-12 table-responsive">
         <h2>Channels by Freqeuncy</h2>
         <table class="table table-condensed">
             <thead></thead>
-            <tbody>
-
-            </tbody>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+<div class="row channel-display" id="channelsByName" style="display:none;">
+    <div class="col-md-12 table-responsive">
+        <h2>Channels by Name</h2>
+        <table class="table table-condensed">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+<div class="row channel-display" id="channelsByPosition" style="display:none;">
+    <div class="col-md-12 table-responsive">
+        <h2>Channels in File Order</h2>
+        <table class="table table-condensed">
+            <thead></thead>
+            <tbody></tbody>
         </table>
     </div>
 </div>

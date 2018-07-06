@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $('.report-controls button, .report-controls input').attr('disabled', true);
+
     var codeplug = null;
 
     function isDigital(channel) {
@@ -42,6 +44,9 @@
             }
             else {
                 row.addClass('nozones');
+                if ($('#hideNoZoneChan').is(':checked')) {
+                    row.addClass('hidden');
+                }
             }
 
             var summaryCell = $('<td/>').addClass('summary').appendTo(row);
@@ -63,11 +68,30 @@
             if (a.RxFrequency === b.RxFrequency) {
                 return a.Name.localeCompare(b.Name);
             }
-            return a.RxFrequency - b.RxFrequency
+            return a.RxFrequency - b.RxFrequency;
         });
         var elem = $('#channelsByFrequency');
         populateChannelList(channels, elem);
     }
+
+    function listChannelsByName() {
+
+        var channels = codeplug.Channels.sort(function (a, b) {
+            return a.Name.localeCompare(b.Name);
+        });
+        var elem = $('#channelsByName');
+        populateChannelList(channels, elem);
+    }
+
+    function listChannelsByPosition() {
+
+        var channels = codeplug.Channels.sort(function (a, b) {
+            return a.Position - b.Position;
+        });;
+        var elem = $('#channelsByPosition');
+        populateChannelList(channels, elem);
+    }
+
 
     $.getJSON('/js/obx.json', function (data) {
 
@@ -83,11 +107,44 @@
         console.log(codeplug);
         // todo: summarize codeplug data
 
-        // todo: enable controls
+        // enable controls
+        $('.report-controls button, .report-controls input').attr('disabled', false);
 
+        // select first button for the user
+        $('.report-controls button').first().trigger('click');
 
+    });
+
+    // handlers 
+    $('#hideNoZoneChan').change(function () {
+        if ($('#hideNoZoneChan').is(':checked')) {
+            $('tr.nozones').addClass('hidden');
+        }
+        else {
+            $('tr.nozones').removeClass('hidden');
+        }
+    });
+
+    $('#btnChanFrequency').click(function (e) {
+
+        $('.report-controls button').removeClass('active');
+        $('.channel-display').hide();
         listChannelsByFrequency();
+        $(this).addClass('active');
+    });
+    $('#btnChanName').click(function (e) {
 
+        $('.report-controls button').removeClass('active');
+        $('.channel-display').hide();
+        listChannelsByName();
+        $(this).addClass('active');
+    });
+    $('#btnChanPosition').click(function (e) {
+
+        $('.report-controls button').removeClass('active');
+        $('.channel-display').hide();
+        listChannelsByPosition();
+        $(this).addClass('active');
     });
 
 });
